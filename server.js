@@ -9,9 +9,10 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+const lineServ = require('./backend/lineServ');
 appNonSSL.get('*', (req, res) => {
-  // res.status(301).redirect(`https://nbiot.werapun.com${req.param}`)
-  console.log(req.params['0']);
+  res.status(301).redirect(`https://nbiot.werapun.com${req.params['0']}`) // redirect to url request
+  // console.log(req.params['0']);
 })
 
 appNonSSL.listen(80, () => {
