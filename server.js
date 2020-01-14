@@ -32,7 +32,9 @@ var https_options = {
 var app = express();
 var port = process.env.PORT || 443;
 var server = https.createServer(https_options, app);
-
+app.get('/', (req, res) => {
+  res.end("successfull SSL")
+})
 server.listen(port, function () {
   console.log('Hello IREALLYHOST listening on port ' + server.address().port);
 });
