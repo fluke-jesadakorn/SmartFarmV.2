@@ -7,7 +7,7 @@ app.post('/onPush',(req, res)=>{
     console.log(req.params);
 })
 app.listen(port,()=>{
-    console.log(`git auto pull running on port ${port}`);
+    console.log(`git auto pull running on port ${port}`)
 });
 
 (function () {
