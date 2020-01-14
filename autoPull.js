@@ -5,6 +5,7 @@ const port = 90;
 
 app.post('/onPush',(req, res)=>{
     console.log(req.params);
+    res.status(200).end("Thank You For Sending");
 })
 app.listen(port,()=>{
     console.log(`git auto pull running on port ${port}`);
