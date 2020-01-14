@@ -39,7 +39,7 @@ appNonSSL.get("*", (req,res)=> {
 appNonSSL.listen(80,()=>{
   console.log('http ready for redirect to https ')
 })
-app.get('/', (req, res) => {
+appSSL.get('/', (req, res) => {
   res.end("successfull SSL")
 })
 server.listen(port, function () {
