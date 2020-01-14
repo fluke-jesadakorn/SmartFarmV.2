@@ -33,16 +33,24 @@ var appSSL = express();
 var appNonSSL = express();
 var port = process.env.PORT || 443;
 var server = https.createServer(https_options, appSSL);
-appNonSSL.get("*", (req,res)=> {
+
+appNonSSL.get("*", (req, res) => {
   res.status(301).redirect('https://nbiot.werapun.com');
+
 })
-appNonSSL.listen(80,()=>{
-  console.log('http ready for redirect to https ')
+
+appNonSSL.post("*"), (req, res)=> {
+  console.log("Pulled")
+}
+
+appNonSSL.listen(80, () => {
+  console.log('http ready for redirect to https')
 })
+
 appSSL.get('/', (req, res) => {
   res.end("successfull SSL")
 })
+
 server.listen(port, function () {
   console.log('Hello IREALLYHOST listening on port ' + server.address().port);
 });
-
