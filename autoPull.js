@@ -11,25 +11,25 @@ app.listen(port,()=>{
     console.log(`git auto pull running on port ${port}`);
 });
 
-(function () {
-    cp.exec('pm2 delete node server', (err, stdout, stderr) => {
-        if (err) {
-            console.log(err);
-            startServer();
+// (function () {
+//     cp.exec('pm2 delete node server', (err, stdout, stderr) => {
+//         if (err) {
+//             console.log(err);
+//             startServer();
 
-        } else {
-            console.log(stdout);
-            startServer();
-        }
-    });
-}())
+//         } else {
+//             console.log(stdout);
+//             startServer();
+//         }
+//     });
+// }())
 
-startServer = () => {
-    cp.exec('pm2 start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(stdout);
-        }
-    })
-}
+// startServer = () => {
+//     cp.exec('pm2 start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(stdout);
+//         }
+//     })
+// }
