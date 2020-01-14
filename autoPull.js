@@ -4,7 +4,7 @@ const app = express();
 const port = 90;
 
 app.post('/onPush',(req, res)=>{
-    console.log(req.params);
+    console.log(req);
     res.status(200).end("Thank You For Sending")
 })
 app.listen(port,()=>{
