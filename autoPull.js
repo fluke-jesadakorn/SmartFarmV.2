@@ -8,7 +8,7 @@ const cp = require('child_process');
             console.log(stdout)
         }
     });
-    cp.exec('pm2 /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
+    cp.exec('pm2 start node /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
         if (err) {
             console.log(err)
             
