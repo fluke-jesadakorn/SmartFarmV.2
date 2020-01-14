@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const axios = require('axios')
 const app = express()
-// const port = process.env.PORT || 5006
+const port = process.env.PORT || 5006
 const { createServer } = require('https');
 
 async function line() {
@@ -23,7 +23,7 @@ async function line() {
     }
     createServer(https_options, (req, res))
     .listen(5006, (req, res)=>{
-        console.log(`Line Server Running On Port 5006`);
+        console.log(`Line Server Running On Port ${5006}`);
     })
 
     async function reply(reply_token, msg) {
