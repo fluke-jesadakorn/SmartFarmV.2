@@ -1,4 +1,14 @@
 const cp = require('child_process');
+const express = require('express');
+const app = express();
+const port = 90;
+
+app.post('/onPush',(req, res)=>{
+    console.log(req.params);
+})
+app.listen(port,()=>{
+    console.log(`git auto pull running on port ${port}`);
+});
 
 (function () {
     cp.exec('pm2 delete node server', (err, stdout, stderr) => {
@@ -14,7 +24,7 @@ const cp = require('child_process');
 }())
 
 startServer = () => {
-    cp.exec('pm2 start node /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
+    cp.exec('pm2 start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
         if (err) {
             console.log(err);
         } else {
