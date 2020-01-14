@@ -15,7 +15,7 @@
 //   server.listen(port, err => {
 //     if (err) throw err
 //     console.log(`> Ready on http://localhost:${port}`)
-    
+
 //   })
 // })
 
@@ -24,15 +24,16 @@ var fs = require('fs');
 var express = require('express');
 
 var https_options = {
-  key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/private.key"),
-  cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/your_domain_name.crt"),
-  ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/CA_root.crt')
+  key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/private.key", "utf8"),
+  cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
+  ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
 };
 
 var app = express();
 var port = process.env.PORT || 443;
-var server = https.createServer( https_options , app );
+var server = https.createServer(https_options, app);
 
-server.listen( port, function () {
-    console.log( 'Hello IREALLYHOST listening on port ' + server.address().port );
+server.listen(port, function () {
+  console.log('Hello IREALLYHOST listening on port ' + server.address().port);
 });
+
