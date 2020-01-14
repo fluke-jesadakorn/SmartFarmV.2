@@ -11,7 +11,7 @@ const handle = app.getRequestHandler();
 
 appNonSSL.get('*', (req, res) => {
   // res.status(301).redirect(`https://nbiot.werapun.com${req.param}`)
-  console.log(req.param);
+  console.log(req.params['0']);
 })
 
 appNonSSL.listen(80, () => {
