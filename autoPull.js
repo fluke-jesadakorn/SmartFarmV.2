@@ -8,7 +8,7 @@ app.post('/onPush',(req, res)=>{
     res.status(200).end("Thank You For Sending");
 })
 app.listen(port,()=>{
-    console.log(`git auto pull running on port ${port}`);
+    console.log(`git auto pull running on port ${port}`)
 });
 
 // (function () {
