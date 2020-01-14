@@ -40,10 +40,20 @@ const { createServer } = require('https');
 const { parse } = require('url');
 const next = require('next');
 const fs = require('fs');
+const appNonSSL = express();
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+
+appNonSSL.listen(80, () => {
+  console.log('HTTP ready for redirect to https')
+})
+
+appNonSSL.get('*', (req, res) => {
+  // res.status(301).redirect()
+  console.log(req.params);
+})
 
 let https_options = {
   key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
