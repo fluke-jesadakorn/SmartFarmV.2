@@ -22,9 +22,10 @@ async function line() {
         cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
         ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
     }
-    createServer(https_options, (req, res))
-    .listen(5006, (req, res)=>{
+    createServer(https_options, (req, res)=>{
         console.log(`Line Server Running On Port ${5006}`);
+    }).listen(port, err=>{
+        console.error(err);
     })
 
     async function reply(reply_token, msg) {
