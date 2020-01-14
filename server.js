@@ -52,7 +52,7 @@ let https_options = {
 };
 
 app.prepare().then(() => {
-  createServer(httpsOptions, (req, res) => {
+  createServer(https_options, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
     
