@@ -29,9 +29,16 @@ var https_options = {
   ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
 };
 
-var app = express();
+var appSSL = express();
+var appNonSSL = express();
 var port = process.env.PORT || 443;
-var server = https.createServer(https_options, app);
+var server = https.createServer(https_options, appSSL);
+appNonSSL.get("*", (req,res)=> {
+  res.status(301).redirect('https://nbiot.werapun.com');
+})
+appNonSSL.listen(80,()=>{
+  console.log('http ready for redirect to https ')
+})
 app.get('/', (req, res) => {
   res.end("successfull SSL")
 })
