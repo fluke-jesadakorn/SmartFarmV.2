@@ -2,36 +2,36 @@ const cp = require('child_process');
 const express = require('express');
 const app = express();
 const port = 90;
-const bodyParser = require('body-parser');
 
-app.use(bodyParser())
-app.post('/onPush',(req, res)=>{
-    console.log(req.body);
-    res.status(200).end("Thank You For Sending");
+app.post('/onPush', async (req, res) => {
+    await cp.exec('pm2 delete node server', (err, stdout, stderr) => {
+        if (err) {
+            console.log(err);
+
+        } else {
+            console.log(stdout);
+        }
+    });
+
+    await cp.exec('cd /root/SmartFarmV.2 && git pull ', (err, stdout, stderr) => {
+        if (err) {
+            console.log(err);
+
+        } else {
+            console.log(stdout);
+        }
+    });
+
+    await cp.exec('pm2 start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(stdout);
+        }
+    })
+
+    await res.status(200).end("Thank You For Sending");
 })
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`git auto pull running on port ${port}`);
 });
-
-// (function () {
-//     cp.exec('pm2 delete node server', (err, stdout, stderr) => {
-//         if (err) {
-//             console.log(err);
-//             startServer();
-
-//         } else {
-//             console.log(stdout);
-//             startServer();
-//         }
-//     });
-// }())
-
-// startServer = () => {
-//     cp.exec('pm2 start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log(stdout);
-//         }
-//     })
-// }
