@@ -1,6 +1,6 @@
 const cp = require('child_process');
-(function () {
-    cp.exec('pm2 delete node server', (err, stdout, stderr) => {
+(async function () {
+    await cp.exec('pm2 delete node server', (err, stdout, stderr) => {
         if (err) {
             console.log(err)
             
@@ -8,7 +8,7 @@ const cp = require('child_process');
             console.log(stdout)
         }
     });
-    cp.exec('pm2 start node /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
+    await cp.exec('pm2 start node /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
         if (err) {
             console.log(err)
             
