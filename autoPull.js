@@ -30,7 +30,7 @@ app.post('/onPush', async (req, res) => {
         }
     })
 
-    await res.status(200).end("Thank You For Sending");
+    await res.status(200).end("Thank You For Sending")
 })
 app.listen(port, () => {
     console.log(`git auto pull running on port ${port}`);
