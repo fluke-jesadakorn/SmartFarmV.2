@@ -40,7 +40,7 @@ appNonSSL.get("*", (req, res) => {
 })
 
 appNonSSL.post("*"), (req, res)=> {
-  console.log("Pulled")
+  console.log("Pulled");
 }
 
 appNonSSL.listen(80, () => {
