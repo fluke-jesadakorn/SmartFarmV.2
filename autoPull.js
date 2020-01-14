@@ -22,7 +22,7 @@ app.post('/onPush', async (req, res) => {
         }
     });
 
-    await cp.exec('pm2 start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
+    await cp.exec('pm2 -f start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
         if (err) {
             console.log(err);
         } else {
