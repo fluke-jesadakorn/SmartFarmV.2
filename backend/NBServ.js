@@ -1,4 +1,3 @@
-module.exports = { listen, sendSw }
 require('dotenv').config()
 const config = require('../01_backend_config')
 const express = require('express')
@@ -8,7 +7,7 @@ const socketIO = require('socket.io')
 const bodyParser = require('body-parser')
 const sc = express()
 const port = config.SOCKET_PORT
-const axios = require('axios')
+const axios = require('axios');
 
 sc.use(bodyParser.json())
 sc.use(bodyParser.urlencoded({
@@ -40,7 +39,12 @@ function LineSw(data) {
 function listen() {
 	server.on("error", function (err) {
 		console.log("server error:\n" + err.stack);
-		server.close()
+		//server.close()
+	})
+
+	server.on("close", function (err) {
+		console.log("server close:\n" + err.stack);
+		//server.close()
 	})
 
 	server.on("message", (msg, rinfo) => {
@@ -85,3 +89,5 @@ function sendSw(sw) {
 		console.log("res is : " + res + "to " + store.nbip + ": " + store.nbport)
 	})
 }
+
+listen()
