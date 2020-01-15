@@ -1,4 +1,3 @@
-require('dotenv').config()
 const express = require('express')
 const dgram = require("dgram")
 const server = dgram.createSocket("udp4")
