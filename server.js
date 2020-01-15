@@ -1,5 +1,5 @@
 const { createServer } = require('https')
-const { parse } = require('url');
+const { parse } = require('url')
 const next = require('next');
 const fs = require('fs');
 const express = require('express');
