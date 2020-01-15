@@ -3,7 +3,7 @@ const { parse } = require('url');
 const next = require('next');
 const fs = require('fs');
 const express = require('express');
-const appNonSSL = express();
+const appNonSSL = express()
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
