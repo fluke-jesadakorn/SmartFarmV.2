@@ -1,12 +1,11 @@
 require('dotenv').config()
-const config = require('../01_backend_config')
 const express = require('express')
 const dgram = require("dgram")
 const server = dgram.createSocket("udp4")
 const socketIO = require('socket.io')
 const bodyParser = require('body-parser')
 const sc = express()
-const port = config.SOCKET_PORT
+const port = 5004
 const axios = require('axios');
 
 sc.use(bodyParser.json())
