@@ -98,4 +98,4 @@ async function line() {
         })
     }
 }
-line()
+line();
