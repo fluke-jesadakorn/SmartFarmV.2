@@ -76,7 +76,7 @@ function listen() {
 
 	server.bind({
 		address: '0.0.0.0',
-		port: config.NB_PORT,
+		port: 5004,
 		exclusive: true
 	});
 }
