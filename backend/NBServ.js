@@ -1,6 +1,4 @@
-module.exports = { listen, sendSw }
-require('dotenv').config()
-const config = require('../01_backend_config')
+
 const express = require('express')
 const dgram = require("dgram")
 const server = dgram.createSocket("udp4")
@@ -85,3 +83,4 @@ function sendSw(sw) {
 		console.log("res is : " + res + "to " + store.nbip + ": " + store.nbport)
 	})
 }
+listen()
