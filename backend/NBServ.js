@@ -12,7 +12,7 @@ sc.use(bodyParser.urlencoded({
 	extended: true
 }))
 const app = sc.listen(port, function (err, result) {
-	console.log('SocketIO API Start On http://localhost:' + port)
+	console.log('SocketIO API Start On http://localhost:' + port);
 })
 
 const io = socketIO.listen(app);
