@@ -4,7 +4,7 @@ const app = express();
 const port = 90;
 
 app.post('/onPush', async (req, res) => {
-    await cp.exec('pm2 delete node server', (err, stdout, stderr) => {
+    await cp.exec('cd /root/SmartFarmV.2 && git pull', (err, stdout, stderr) => {
         if (err) {
             console.log(err);
 
@@ -12,23 +12,6 @@ app.post('/onPush', async (req, res) => {
             console.log(stdout);
         }
     });
-
-    await cp.exec('cd /root/SmartFarmV.2 && git pull ', (err, stdout, stderr) => {
-        if (err) {
-            console.log(err);
-
-        } else {
-            console.log(stdout);
-        }
-    });
-
-    await cp.exec('pm2 -f start /root/SmartFarmV.2/server.js', (err, stdout, stderr) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(stdout);
-        }
-    })
 
     await res.status(200).end("Thank You For Sending")
 })
