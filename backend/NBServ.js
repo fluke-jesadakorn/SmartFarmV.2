@@ -76,7 +76,7 @@ function listen() {
 
 	server.bind({
 		address: '0.0.0.0',
-		port: 5004,
+		port: 5006,
 		exclusive: true
 	});
 }

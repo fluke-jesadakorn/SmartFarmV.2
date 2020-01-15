@@ -1,16 +1,16 @@
-const { createServer } = require('https')
-const { parse } = require('url')
+const { createServer } = require('https');
+const { parse } = require('url');
 const next = require('next');
 const fs = require('fs');
 const express = require('express');
-const appNonSSL = express()
+const appNonSSL = express();
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const lineServ = require('./backend/lineServ');
-const NBServer = require('./backend/NBServ.js')
+const NBServer = require('./backend/NBServ.js');
 
 appNonSSL.get('*', (req, res) => {
   res.status(301).redirect(`https://nbiot.werapun.com${req.params['0']}`) // redirect to url request
