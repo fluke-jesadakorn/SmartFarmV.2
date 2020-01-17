@@ -13,7 +13,7 @@ const lineServ = require('./backend/lineServ');
 const NBServer = require('./backend/NBServ.js');
 
 appNonSSL.get('*', (req, res) => {
-  res.status(301).redirect(`https://nbiot.werapun.com${req.params['0']}`) // redirect to url request
+  res.status(301).redirect(`https://${req.headers.host}${req.url}:3000`) // redirect to url request
   // console.log(req.params['0']);
 })
 
