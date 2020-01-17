@@ -13,7 +13,7 @@ const lineServ = require('./backend/lineServ');
 const NBServer = require('./backend/NBServ.js');
 
 appNonSSL.get('*', (req, res) => {
-  res.status(301).redirect(`https://${req.headers.host}${req.url}:3000`) // redirect to url request
+  res.status(301).redirect(`https://${req.headers.host}${req.url}`) // redirect to url request
   // console.log(req.params['0']);
 })
 
@@ -32,7 +32,7 @@ app.prepare().then(() => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
     
-  }).listen(3000, err => {
+  }).listen(443, err => {
     if (err) throw err;
     console.log('> Ready on https://localhost:3000');
   });
