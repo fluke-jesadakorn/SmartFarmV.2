@@ -12,7 +12,7 @@ const preloadedState = {
 
 const persistConfig = {
   key: 'root',
-  storage: SyncStorage
+  storage
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);
