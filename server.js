@@ -6,7 +6,7 @@ const fs = require('fs');
 const express = require('express');
 const appNonSSL = express();
 
-const dev = process.env.NODE_ENV !== 'production';
+const dev =  true // process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
