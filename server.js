@@ -6,12 +6,13 @@ const fs = require('fs');
 const express = require('express');
 const appNonSSL = express();
 
-const dev =  true // process.env.NODE_ENV !== 'production';
+const dev = true // process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const lineServ = require('./backend/lineServ');
 const NBServer = require('./backend/NBServ.js');
+const MongoServer = require('./backend/mongoServer.js');
 
 let https_options;
 let PORThttps = 443;
@@ -27,11 +28,16 @@ appNonSSL.listen(PORThttpRedirect, () => {
 })
 
 if (process.env.NODE_ENV === 'production') {
-  https_options = {
-    key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
-    ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
+  try {
+    https_options = {
+      key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
+      cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
+      ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
+    }
+  } catch (err) {
+    console.log('error is ' + err);
   }
+
 } else if (process.NODE_ENV === 'development') {
   https_options = null;
 }
