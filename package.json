@@ -5,9 +5,10 @@
   "scripts": {
     "client": "next dev",
     "server": "nodemon ./backend/centerAPI.js",
-    "dev": "nodemon server.js",
+    "dev": "NODE_ENV=development nodemon ./server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "production": "NODE_ENV=production nodemon ./server.js"
   },
   "dependencies": {
     "antd": "^3.26.5",

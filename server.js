@@ -1,4 +1,5 @@
-const { createServer } = require('https');
+const httpsServer = require('https').createServer
+const httpServer = require('http').createServer
 const { parse } = require('url');
 const next = require('next');
 const fs = require('fs');
@@ -12,28 +13,52 @@ const handle = app.getRequestHandler();
 const lineServ = require('./backend/lineServ');
 const NBServer = require('./backend/NBServ.js');
 
+let https_options;
+let PORThttps = 443;
+let PORThttpDev = 5004;
+let PORThttpRedirect = 80;
 appNonSSL.get('*', (req, res) => {
   res.status(301).redirect(`https://${req.headers.host}${req.url}`) // redirect to url request
   // console.log(req.params['0']);
 })
 
-appNonSSL.listen(80, () => {
+appNonSSL.listen(PORThttpRedirect, () => {
   console.log('HTTP ready for redirect to https')
 })
 
-let https_options = {
-  key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
-  cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
-  ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
-};
+if (process.env.NODE_ENV === 'production') {
+  https_options = {
+    key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
+    ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
+  }
+} else if (process.NODE_ENV === 'development') {
+  https_options = null;
+}
 
-app.prepare().then(() => {
-  createServer(https_options, (req, res) => {
-    const parsedUrl = parse(req.url, true);
-    handle(req, res, parsedUrl);
-    
-  }).listen(443, err => {
-    if (err) throw err;
-    console.log('> Ready on https://localhost:3000');
+
+if (process.env.NODE_ENV === 'production') {
+  app.prepare().then(() => {
+    httpsServer(https_options, (req, res) => {
+      const parsedUrl = parse(req.url, true);
+      handle(req, res, parsedUrl);
+
+    }).listen(PORThttps, err => {
+      if (err) console.error(err);
+      console.log(`HTTPS > Ready on https://localhost:${PORThttps}`);
+    });
   });
-});
+}
+
+else if (process.env.NODE_ENV === 'development') {
+  app.prepare().then(() => {
+    httpServer((req, res) => {
+      const parsedUrl = parse(req.url, true);
+      handle(req, res, parsedUrl);
+
+    }).listen(PORThttpDev, err => {
+      if (err) console.error(err);
+      console.log(`HTTP > Ready on http://localhost:${PORThttpDev}`);
+    });
+  });
+}

@@ -4,15 +4,16 @@ const server = dgram.createSocket("udp4")
 const socketIO = require('socket.io')
 const bodyParser = require('body-parser')
 const sc = express()
-const port = 5004
+const SocketIOPort = 5001;
+const NbIoTPort = 5003;
 const axios = require('axios');
 
 sc.use(bodyParser.json())
 sc.use(bodyParser.urlencoded({
 	extended: true
 }))
-const app = sc.listen(port, function (err, result) {
-	console.log('SocketIO API Start On http://localhost:' + port);
+const app = sc.listen(SocketIOPort, function (err, result) {
+	console.log('SocketIO API Start On http://localhost:' + SocketIOPort);
 })
 
 const io = socketIO.listen(app);
@@ -76,9 +77,9 @@ function listen() {
 
 	server.bind({
 		address: '0.0.0.0',
-		port: 5006,
+		port: NbIoTPort,
 		exclusive: true
-	});
+	},()=>console.log(`NBIoT running on port : ${NbIoTPort}`));
 }
 
 function sendSw(sw) {

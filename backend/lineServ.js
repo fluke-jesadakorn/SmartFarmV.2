@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const axios = require('axios')
@@ -5,7 +6,7 @@ const app = express()
 const port = process.env.PORT || 5006
 const { createServer } = require('https');
 const fs = require('fs');
-
+const LineToken = process.env.LINE_TOKEN
 async function line() {
     console.log(`LineServerStartAtPort ${port}`);
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,7 +34,7 @@ async function line() {
     async function reply(reply_token, msg) {
         let headers = {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer {JN5kZ9mYMDGYC1N85tCoR04mz/6JcOoRmWhl0WECIV2la8iPLTZ07j6AE2FPUbF1XnrWwcEKodeiHLYzje2mpUMSISy1f4ocle5xnanGwg2IOUo6zR269B24ZMz3vr/vjgbOj+OhVY/zuye3mQGtZgdB04t89/1O/w1cDnyilFU=}'
+            'Authorization': `Bearer {${LineToken}}`
         }
 
         let resMessage = async (msg) => {
