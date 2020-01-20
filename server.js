@@ -10,7 +10,7 @@ const dev = true // process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const lineServ = require('./backend/lineServ');
+const lineServ = require('./backend/lineServ.js');
 const NBServer = require('./backend/NBServ.js');
 const MongoServer = require('./backend/mongoServer.js');
 
