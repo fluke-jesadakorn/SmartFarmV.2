@@ -10,6 +10,6 @@ module.exports = (PORT, appFromExpress, serverType) => {
     var server = https.createServer(https_options, appFromExpress);
 
     server.listen(PORT, function () {
-        console.log(`${serverType} Bot Server Running on : ` + server.address() + `${PORT}` );
+        console.log(`${serverType} Bot Server Running on : ` + server.address() + `${PORT}`);
     });
 }
