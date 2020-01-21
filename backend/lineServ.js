@@ -22,6 +22,7 @@ module.exports = ( async function() {
     await HTTPSServer(PORT, app, serverType);
 
     async function reply(reply_token, msg) {
+        console.log('Get in reply Funct')
         let headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer {${LineToken}}`
