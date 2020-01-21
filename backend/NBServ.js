@@ -8,7 +8,7 @@ var store = {
 	moi: [], nbip: [], nbport: []
 };
 
-module.exports = function LineSw(data) {
+LineSw = (data) => {
 	switch (data.type) {
 		case "setMoi": {
 			store.moi = data.payload
@@ -23,12 +23,12 @@ module.exports = function LineSw(data) {
 	}
 }
 
-server.on("error", function (err) {
+server.on("error", (err) => {
 	console.log("server error:\n" + err.stack);
 	//server.close()
 })
 
-server.on("close", function (err) {
+server.on("close", (err) => {
 	console.log("server close:\n" + err.stack);
 	//server.close()
 })
@@ -65,3 +65,4 @@ server.bind({
 	port: NbIoTPort,
 	exclusive: true
 });
+

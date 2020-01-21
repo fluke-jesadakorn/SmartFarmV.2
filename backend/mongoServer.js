@@ -70,17 +70,6 @@ router.post('/addData', async (req, res) => {
     }
 });
 
-router.post('/button', (req, res) => {
-    SendSw.sendBtSwToLine(req.body.command)
-})
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static("client/build/"))
-    app.get('*', function (req, res) {
-        res.sendFile(path.resolve(__dirname + 'client', 'build', 'index.html'));
-    });
-}
-
 // append /api for our http requests
 app.use('/api', router);
 

@@ -8,7 +8,7 @@
     "dev": "NODE_ENV=development nodemon ./server.js",
     "build": "next build",
     "start": "next start",
-    "production": "npm run build && NODE_ENV=production nodemon ./server.js"
+    "product": "npm run build && NODE_ENV=production nodemon ./server.js"
   },
   "dependencies": {
     "antd": "^3.26.5",
