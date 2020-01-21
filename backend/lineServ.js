@@ -26,12 +26,10 @@ module.exports = (async function () {
         ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
     }
     createServer(https_options, (req, res) => {
-        const parsedUrl = parse(req.url, true);
-        handle(req, res, parsedUrl);
-  
+        handle(req, res);
       }).listen(PORT, err => {
         if (err) console.error(err);
-        console.log(`HTTPS > Ready on https://localhost:${PORT}`);
+        console.log(`Line > Ready on https://localhost:${PORT}`);
       });
 
     async function reply(reply_token, msg) {
