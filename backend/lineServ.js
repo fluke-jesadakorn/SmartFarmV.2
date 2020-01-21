@@ -8,7 +8,7 @@ module.exports = (async function () {
     const app = express()
     const PORT = process.env.PORT || 5006
     const LineToken = process.env.LINE_TOKEN
-    const { createServer } = require('https');
+    const https = require('https');
     const fs = require('fs');
 
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +27,7 @@ module.exports = (async function () {
     }
     var server = https.createServer( https_options , app );
     
-    server.listen( port, function () {
+    server.listen( PORT, function () {
         console.log( 'Line Bot Server Running on : ' + server.address().port );
     });
 
