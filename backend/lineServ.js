@@ -93,6 +93,7 @@ async function reply(reply_token, msg) {
     })
 
     try {
+        console.log('DEBUG POST AXIOS')
         axios({
             method: 'POST',
             headers: headers,
