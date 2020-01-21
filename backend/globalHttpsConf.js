@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'production') {
     https_options = null;
 }
 
-module.exports = createServer(https_options, appFromExpress, serverType, (req, res) => {
+module.exports = createServer(https_options, appFromExpress, (req, res) => {
     const parsedUrl = parse(req.url, true);
     handle(req, res, parsedUrl);
     console.log(`${serverType} Server Running On Port ${PORT}`);

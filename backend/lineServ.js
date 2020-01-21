@@ -18,8 +18,8 @@ module.exports = (async function () {
         res.sendStatus(200);
     })
 
-    //HTTPS
-    await HTTPSServer(PORT, app, serverType);
+    HTTPSServer(PORT, app);
+
 
     async function reply(reply_token, msg) {
         console.log('Get in reply Funct')
