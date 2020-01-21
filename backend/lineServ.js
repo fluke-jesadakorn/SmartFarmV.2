@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 5006
 const LineToken = 'JN5kZ9mYMDGYC1N85tCoR04mz/6JcOoRmWhl0WECIV2la8iPLTZ07j6AE2FPUbF1XnrWwcEKodeiHLYzje2mpUMSISy1f4ocle5xnanGwg2IOUo6zR269B24ZMz3vr/vjgbOj+OhVY/zuye3mQGtZgdB04t89/1O/w1cDnyilFU='
 const https = require('https');
 const fs = require('fs');
+const serverWithSSL = require('./globalHttpsConf')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,29 +19,19 @@ app.post('/webhook', async (req, res) => {
     res.sendStatus(200);
 })
 
-const https_options = {
-    key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
-    cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
-    ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
-}
-
-var server = https.createServer(https_options, app);
-
-server.listen(PORT, function () {
-    console.log('Line Bot Server Running on : ' + server.address().port);
-});
+serverWithSSL(PORT, app, serverType);
 
 async function reply(reply_token, msg) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': `Bearer {${LineToken}}`,
         'responseType': 'json',
-        'httpsAgent': new https.Agent({
-            rejectUnauthorized: false,
-            cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
-            key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
-            ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
-        })
+        // 'httpsAgent': new https.Agent({
+        //     rejectUnauthorized: false,
+        //     cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
+        //     key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
+        //     ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
+        // })
     }
 
     let resMessage = async (msg) => {
