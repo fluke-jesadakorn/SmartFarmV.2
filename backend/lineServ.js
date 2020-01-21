@@ -11,10 +11,10 @@ module.exports = ( async function() {
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-    app.post('/webhook', (req, res) => {
+    app.post('/webhook', async (req, res) => {
         let reply_token = req.body.events[0].replyToken;
         let msg = req.body.events[0].message.text;
-        reply(reply_token, msg);
+        await reply(reply_token, msg);
         res.sendStatus(200);
     })
 
