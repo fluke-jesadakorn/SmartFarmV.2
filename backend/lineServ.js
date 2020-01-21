@@ -92,10 +92,14 @@ async function reply(reply_token, msg) {
         }]
     })
 
-    await axios({
-        method: 'POST',
-        headers: headers,
-        data: body,
-        url: 'https://api.line.me/v2/bot/message/reply'
-    })
+    try {
+        axios({
+            method: 'POST',
+            headers: headers,
+            data: body,
+            url: 'https://api.line.me/v2/bot/message/reply'
+        })
+    }catch(err){
+        console.error('Axios Error is : ' + err);
+    }
 }
