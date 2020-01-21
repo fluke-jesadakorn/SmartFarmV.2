@@ -42,7 +42,6 @@ if (process.env.NODE_ENV === 'production') {
   https_options = null;
 }
 
-
 if (process.env.NODE_ENV === 'production') {
   app.prepare().then(() => {
     httpsServer(https_options, (req, res) => {

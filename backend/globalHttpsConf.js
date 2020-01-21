@@ -17,6 +17,6 @@ module.exports = (PORT, appFromExpress, serverType) => {
     }
 
     server.listen(PORT, function () {
-        console.log(`${serverType} Bot Server Running on : ` + server.address() + ` ${PORT}`);
+        console.log(`${serverType} Server Running on 0.0.0.0:${PORT}`);
     });
 }

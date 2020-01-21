@@ -74,4 +74,4 @@ router.post('/addData', async (req, res) => {
 app.use('/api', router);
 
 // launch our backend into a port
-app.listen(MongoPORT, () => console.log(`MongoDB API Start On ${MongoPORT}`));
+app.listen(MongoPORT, () => console.log(`MongoDB API Start On 0.0.0.0:${MongoPORT}`));
