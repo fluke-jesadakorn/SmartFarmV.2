@@ -1,5 +1,4 @@
 require('dotenv').config()
-// const HTTPSServer = require('./globalHttpsConf')
 const serverType = 'Line';
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -93,7 +92,7 @@ async function reply(reply_token, msg) {
         }]
     })
 
-    axios({
+    await axios({
         method: 'POST',
         headers: headers,
         data: body,
