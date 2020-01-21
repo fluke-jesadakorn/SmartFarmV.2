@@ -23,9 +23,6 @@ const https_options = {
     cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
     ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
 }
-const httpsAgent = new https.Agent({
-    ...https_options
-  });
 
 var server = https.createServer(https_options, app);
 
@@ -36,7 +33,9 @@ server.listen(PORT, function () {
 async function reply(reply_token, msg) {
     let headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer {${LineToken}}`
+        'Authorization': `Bearer {${LineToken}}`,
+        'responseType': 'json',
+        'httpsAgent': new https.Agent({ rejectUnauthorized: false })
     }
 
     let resMessage = async (msg) => {
@@ -93,22 +92,26 @@ async function reply(reply_token, msg) {
         }]
     })
 
-    await axios({
+    const agent = new https.Agent({
+        rejectUnauthorized: false
+    });
+
+    axios({
         method: 'POST',
         headers: headers,
         data: body,
         url: 'https://api.line.me/v2/bot/message/reply',
     })
-    .catch((error) => {
-        if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        }else if(error.request){
-            console.log(error.request);
-        }else{
-            console.log('Error', error.message);
-        }
-        console.log(error.config);
-    });
+        .catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log('Error', error.message);
+            }
+            console.log(error.config);
+        });
 }
