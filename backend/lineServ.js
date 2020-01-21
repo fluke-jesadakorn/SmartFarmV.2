@@ -98,7 +98,6 @@ async function reply(reply_token, msg) {
         headers: headers,
         data: body,
         url: 'https://api.line.me/v2/bot/message/reply',
-        httpsAgent : httpsAgent,
     })
     .catch((error) => {
         if (error.response) {
@@ -112,5 +111,4 @@ async function reply(reply_token, msg) {
         }
         console.log(error.config);
     });
-
 }
