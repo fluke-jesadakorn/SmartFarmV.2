@@ -18,11 +18,15 @@ app.post('/webhook', async (req, res) => {
     res.sendStatus(200);
 })
 
-let https_options = {
+const https_options = {
     key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
     cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
     ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
 }
+const httpsAgent = new https.Agent({
+    ...https_options
+  });
+
 var server = https.createServer(https_options, app);
 
 server.listen(PORT, function () {
@@ -96,7 +100,8 @@ async function reply(reply_token, msg) {
         method: 'POST',
         headers: headers,
         data: body,
-        url: 'https://api.line.me/v2/bot/message/reply'
+        url: 'https://api.line.me/v2/bot/message/reply',
+        httpsAgent : httpsAgent,
     })
     .catch((error) => {
         if (error.response) {
