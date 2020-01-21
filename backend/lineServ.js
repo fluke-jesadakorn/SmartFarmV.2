@@ -35,7 +35,12 @@ async function reply(reply_token, msg) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer {${LineToken}}`,
         'responseType': 'json',
-        'httpsAgent': new https.Agent({ rejectUnauthorized: false })
+        'httpsAgent': new https.Agent({
+            rejectUnauthorized: false,
+            cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
+            key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
+            ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
+        })
     }
 
     let resMessage = async (msg) => {
