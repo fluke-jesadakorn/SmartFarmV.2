@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const axios = require('axios')
 const app = express()
 const PORT = process.env.PORT || 5006
-const LineToken = process.env.LINE_TOKEN
+const LineToken = 'JN5kZ9mYMDGYC1N85tCoR04mz/6JcOoRmWhl0WECIV2la8iPLTZ07j6AE2FPUbF1XnrWwcEKodeiHLYzje2mpUMSISy1f4ocle5xnanGwg2IOUo6zR269B24ZMz3vr/vjgbOj+OhVY/zuye3mQGtZgdB04t89/1O/w1cDnyilFU='
 const https = require('https');
 const fs = require('fs');
 
