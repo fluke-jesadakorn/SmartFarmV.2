@@ -13,6 +13,8 @@ module.exports = (PORT, appFromExpress, serverType) => {
     }
 
     createServer(https_options, appFromExpress, serverType, (req, res) => {
+        const parsedUrl = parse(req.url, true);
+        handle(req, res, parsedUrl);
         console.log(`${serverType} Server Running On Port ${PORT}`);
     })
         .listen(PORT, err => console.error(err))
