@@ -1,6 +1,6 @@
 module.exports = (async function () {
     require('dotenv').config()
-    const HTTPSServer = require('./globalHttpsConf')
+    // const HTTPSServer = require('./globalHttpsConf')
     const serverType = 'Line';
     const express = require('express')
     const bodyParser = require('body-parser')
@@ -8,6 +8,8 @@ module.exports = (async function () {
     const app = express()
     const PORT = process.env.PORT || 5006
     const LineToken = process.env.LINE_TOKEN
+    const { createServer } = require('https');
+    const fs = require('fs');
 
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
@@ -18,8 +20,19 @@ module.exports = (async function () {
         res.sendStatus(200);
     })
 
-    HTTPSServer(PORT, app);
-
+    let https_options = {
+        key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
+        cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
+        ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
+    }
+    createServer(https_options, (req, res) => {
+        const parsedUrl = parse(req.url, true);
+        handle(req, res, parsedUrl);
+  
+      }).listen(PORT, err => {
+        if (err) console.error(err);
+        console.log(`HTTPS > Ready on https://localhost:${PORT}`);
+      });
 
     async function reply(reply_token, msg) {
         console.log('Get in reply Funct')
