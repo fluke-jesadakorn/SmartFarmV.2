@@ -1,4 +1,4 @@
-module.exports = ( async function() {
+module.exports = (async function () {
     require('dotenv').config()
     const HTTPSServer = require('./globalHttpsConf')
     const serverType = 'Line';
@@ -84,6 +84,10 @@ module.exports = ( async function() {
                 text: await resMessage(msg)
             }]
         })
+
+        axios(config)
+            .then(handleResponse)
+            .catch(handleError);
 
         axios({
             method: 'POST',
