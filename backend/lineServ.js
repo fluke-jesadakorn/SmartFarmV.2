@@ -16,7 +16,7 @@ module.exports = (async function () {
     app.post('/webhook', async (req, res) => {
         let reply_token = req.body.events[0].replyToken;
         let msg = req.body.events[0].message.text;
-        await reply(reply_token, msg);
+        reply(reply_token, msg);
         res.sendStatus(200);
     })
 
@@ -25,10 +25,10 @@ module.exports = (async function () {
         cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
         ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
     }
-    var server = https.createServer( https_options , app );
-    
-    server.listen( PORT, function () {
-        console.log( 'Line Bot Server Running on : ' + server.address().port );
+    var server = https.createServer(https_options, app);
+
+    server.listen(PORT, function () {
+        console.log('Line Bot Server Running on : ' + server.address().port);
     });
 
     async function reply(reply_token, msg) {
