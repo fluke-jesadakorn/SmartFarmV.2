@@ -25,12 +25,11 @@ module.exports = (async function () {
         cert: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/cert.pem", "utf8"),
         ca: fs.readFileSync('/etc/letsencrypt/live/nbiot.werapun.com-0001/chain.pem', "utf8")
     }
-    createServer(https_options, (req, res) => {
-        handle(req, res);
-      }).listen(PORT, err => {
-        if (err) console.error(err);
-        console.log(`Line > Ready on https://localhost:${PORT}`);
-      });
+    var server = https.createServer( https_options , app );
+    
+    server.listen( port, function () {
+        console.log( 'Line Bot Server Running on : ' + server.address().port );
+    });
 
     async function reply(reply_token, msg) {
         console.log('Get in reply Funct')
