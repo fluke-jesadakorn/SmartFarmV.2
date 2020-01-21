@@ -1,4 +1,4 @@
-module.exports = (async function () {
+module.exports = (function () {
     require('dotenv').config()
     // const HTTPSServer = require('./globalHttpsConf')
     const serverType = 'Line';
