@@ -32,7 +32,6 @@ module.exports = (async function () {
     });
 
     async function reply(reply_token, msg) {
-        console.log('Get in reply Funct')
         let headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer {${LineToken}}`
@@ -94,10 +93,6 @@ module.exports = (async function () {
                 text: await resMessage(msg)
             }]
         })
-
-        axios(config)
-            .then(handleResponse)
-            .catch(handleError);
 
         axios({
             method: 'POST',
