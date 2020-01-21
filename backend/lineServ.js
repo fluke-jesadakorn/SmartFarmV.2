@@ -92,15 +92,23 @@ async function reply(reply_token, msg) {
         }]
     })
 
-    try {
-        console.log('DEBUG POST AXIOS')
-        axios({
-            method: 'POST',
-            headers: headers,
-            data: body,
-            url: 'https://api.line.me/v2/bot/message/reply'
-        })
-    }catch(err){
-        console.error('Axios Error is : ' + err);
-    }
+    axios({
+        method: 'POST',
+        headers: headers,
+        data: body,
+        url: 'https://api.line.me/v2/bot/message/reply'
+    })
+    .catch((error) => {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }else if(error.request){
+            console.log(error.request);
+        }else{
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+    });
+
 }
