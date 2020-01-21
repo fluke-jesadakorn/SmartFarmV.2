@@ -1,6 +1,5 @@
-
 const fs = require('fs');
-const https = require('https').createServer
+const https = require('https')
 module.exports = (PORT, appFromExpress, serverType) => {
     const https_options = {
         key: fs.readFileSync("/etc/letsencrypt/live/nbiot.werapun.com-0001/privkey.pem", "utf8"),
