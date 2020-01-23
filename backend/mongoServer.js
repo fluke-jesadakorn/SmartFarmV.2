@@ -8,9 +8,10 @@ const path = require('path');
 const app = express();
 const router = express.Router();
 const MongoPORT = process.env.MongoPORT || 5000
+const MongoURL = process.env.MONGO_URL 
 app.use(cors());
 // connects our back end code with the database
-mongoose.connect('mongodb+srv://iflukej:Ff0813780670@smartfarm-euxel.gcp.mongodb.net/test?retryWrites=true&w=majority/SmartFarm', { useNewUrlParser: true , useUnifiedTopology: true });
+mongoose.connect(MongoURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let db = mongoose.connection;
 
@@ -21,32 +22,44 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // (optional) only made for logging and
 // bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // this is our get method
 // this method fetches all available data in our database
 router.get('/getData', async (req, res) => {
-    let getData = await SchemaFarm.find()
-    await res.status(200).json(getData)
+    try {
+        let getData = await SchemaFarm.find()
+        await res.status(200).json(getData)
+    } catch (err) {
+        console.log('Cannot get data because : ' + err)
+    }
 })
 
 // this is our update method
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {
-    const { id, update } = req.body;
-    SchemaFarm.findByIdAndUpdate(id, update, (err) => {
-        if (err) return res.json({ success: false, error: err });
-        return res.json({ success: true });
-    });
+    try {
+        const { id, update } = req.body;
+        SchemaFarm.findByIdAndUpdate(id, update, (err) => {
+            if (err) return res.json({ success: false, error: err });
+            return res.json({ success: true });
+        });
+    } catch (err) {
+        console.log('Cannot update data because : ' + err)
+    }
 });
 
 // this is our delete method
 // this method removes existing data in our database
 router.delete('/deleteData', async (req, res) => {
-    let deleteIndex = await req.body.params
-    await SchemaFarm.deleteOne({ id: deleteIndex })
-    await res.status(200).json({ status: "success" })
+    try{
+        let deleteIndex = await req.body.params
+        await SchemaFarm.deleteOne({ id: deleteIndex })
+        await res.status(200).json({ status: "success" })
+    }catch(err){
+        console.log('Cannot delete data because : ' + err)
+    }
 });
 
 // this is our create methid
@@ -66,7 +79,7 @@ router.post('/addData', async (req, res) => {
         await addData.save()
         await res.status(200).json({ status: "success" })
     } catch (err) {
-        res.status(400).json({ status: "Cannot insert data : " + err })
+        res.status(400).json({ status: "Cannot insert data because : " + err })
     }
 });
 
