@@ -57,7 +57,7 @@ server.on("message", (msg, rinfo) => {
 
 server.on("listening", function () {
 	var address = server.address()
-	console.log("NB Iot API Start On :" + address.address + ":" + address.port)
+	console.log("NB Iot API Start On : " + address.address + ":" + address.port)
 })
 
 server.bind({
