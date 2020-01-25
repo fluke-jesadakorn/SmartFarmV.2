@@ -1,100 +1,75 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-import { Form, Icon, Input, Button, Checkbox, List, Card } from 'antd';
-
-
-const data = [
-    {
-        title: 'Title 1',
-        content: 'One'
-    },
-    {
-        title: 'Title 2',
-        content: 'One'
-    },
-    {
-        title: 'Title 3',
-        content: 'One'
-    },
-    {
-        title: 'Title 4',
-        content: 'One'
-    },
-];
+import { Form, Icon, Input, Button, Checkbox, List, Card, Row, Col } from 'antd';
 
 const Home = (props) => {
-    useEffect(async () => {
-        const result = await axios.get('http://localhost:5000/api/getData')
-        console.log(result.data)
-    })
-    const { getFieldDecorator } = props.form;
+    // const [data, setData] = useState([
+    //     {
+    //         _id: 0,
+    //         id: 0,
+    //         data: '',
+    //         date: '',
+    //     }
+    // ]);
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const result = await axios('http://localhost:5000/api/getData')
+    //         setData(result.data);
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-                // setROI(values.test);
-            }
-        });
-    };
+    //     }
+    //     getData();
+    // }, [])
 
+    // const handleAddData = e => {
+    //     e.preventDefault();
+    //     console.log(e)
+    // };
+    // const handleUpdataData = e => {
+    //     e.preventDefault();
+    // };
+    // const handleDeleteData = e => {
+    //     e.preventDefault();
+    // };
+    // return (
+    //     <>
+    //         {
+    //             data.map((item, key) => {
+    //                 <div>{item.id} {item.data} {item.date} </div>
+    //             })
+    //         }
+
+    //         {JSON.stringify(data)}
+
+    //         <Form>
+    //             <Input
+    //                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+    //                 placeholder="Username"
+    //             />
+    //             <Button>AddData</Button>
+    //         </Form>
+    //     </>
+    // )
     return (
-        <>
-            <List
-                grid={{ gutter: 16, column: 4 }}
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item>
-                        <Card title={item.title}>{item.content}</Card>
-                    </List.Item>
-                )}
-            />
+        <div style={{ background: '#ECECEC', padding: '30px' }}>
+        <Row gutter={16}>
+          <Col span={8}>
+            <Card title="Card title" bordered={false}>
+              Card content
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card title="Card title" bordered={false}>
+              Card content
+            </Card>
+          </Col>
+          <Col span={8}>
+            <Card title="Card title" bordered={false}>
+              Card content
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    )
+}
 
-            <Form onSubmit={handleSubmit} className="login-form">
-
-                <Form.Item>
-                    <p>Adding Test</p>
-                    {getFieldDecorator('gridSize', {
-                        rules: [{ required: false, message: 'Grid size (%)' }],
-                    })(
-                        <Input
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="Grid size %"
-                        />,
-                    )}
-                </Form.Item>
-
-                <Form.Item>
-                    <p>Delete</p>
-                    {getFieldDecorator('gridSize', {
-                        rules: [{ required: true, message: 'Grid size (%)' }],
-                    })(
-                        <Input
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="Grid size %"
-                        />,
-                    )}
-                </Form.Item>
-
-                <Form.Item>
-                    <p>Delete</p>
-                    {getFieldDecorator('gridSize', {
-                        rules: [{ required: true, message: 'Grid size (%)' }],
-                    })(
-                        <Input
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="Grid size %"
-                        />,
-                    )}
-                </Form.Item>
-                <Button type="primary" htmlType="submit" className="login-form-button">
-                    Save
-            </Button>
-            </Form>
-        </>
-            )
-        }
-        
-const WrappedHomeForm = Form.create({name: 'test' })(Home);
-export default WrappedHomeForm
+export default Home
