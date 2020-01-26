@@ -6,7 +6,7 @@ import { pages } from './00_pagesIndex'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
 
   //redux Pages Action
   const { pageNum, home, order, graph, profile, setting1, setting2 } = PagesAction()
@@ -65,12 +65,14 @@ const NavigationBar = () => {
       <Layout>
         <Header style={{ background: '#fff', padding: 0 }} />
         <Content style={{ margin: '0 16px' }}>
+          
           {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb> */}
           <div style={{ padding: 24, background: '#fff', minHeight: 20 }}>{pages[pageNum]}</div>
         </Content>
+        {props.children}
         <Footer style={{ textAlign: 'center' }}>Thank you Ant Design ©2018 Created by Ant UED Developed By Fluke</Footer>
       </Layout>
     </Layout>

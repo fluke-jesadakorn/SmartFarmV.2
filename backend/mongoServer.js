@@ -69,7 +69,7 @@ router.post('/addData', async (req, res) => {
         let getList = await SchemaFarm.find()
         let getCurrentId = await getList.map((id) => { return id.id })
         let CurrentId = await Math.max.apply(null, getCurrentId)
-        if (CurrentId == -Infinity)
+        if (CurrentId === -Infinity)
             CurrentId = 0
         else
             CurrentId++
