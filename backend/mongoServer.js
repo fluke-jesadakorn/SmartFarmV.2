@@ -52,13 +52,14 @@ router.post('/updateData', (req, res) => {
 
 // this is our delete method
 // this method removes existing data in our database
-router.delete('/deleteData', async (req, res) => {
+router.put('/deleteData', async (req, res) => {
     try{
-        let deleteIndex = await req.body.params
-        await SchemaFarm.deleteOne({ id: deleteIndex })
-        await res.status(200).json({ status: "success" })
+        const { id } = await req.body.data;
+        console.log(id);
+        await SchemaFarm.deleteOne({ id: id });
+        await res.status(200).json({ status: "success" });
     }catch(err){
-        console.log('Cannot delete data because : ' + err)
+        console.log('Cannot delete data because : ' + err);
     }
 });
 
@@ -66,6 +67,7 @@ router.delete('/deleteData', async (req, res) => {
 // this method adds new data in our database
 router.post('/addData', async (req, res) => {
     try {
+        //Auto Increment ID
         let getList = await SchemaFarm.find()
         let getCurrentId = await getList.map((id) => { return id.id })
         let CurrentId = await Math.max.apply(null, getCurrentId)
@@ -73,6 +75,7 @@ router.post('/addData', async (req, res) => {
             CurrentId = 0
         else
             CurrentId++
+    
         let JsonData = await req.body.data
         let date = await new Date()
         let addData = await new SchemaFarm({ id: CurrentId, data: JsonData, date: date })
