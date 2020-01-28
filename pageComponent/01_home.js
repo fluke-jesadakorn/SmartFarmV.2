@@ -46,7 +46,7 @@ const Home = () => {
             title: 'Action',
             dataIndex: 'id',
             key: 'x',
-            render: (text, record, index) => <a onClick={() => deleteData(index)}>Delete</a>,
+            render: (text, record, index) => <a onClick={() => {deleteData(text)}}>Delete</a>,
         },
     ];
 
@@ -57,7 +57,7 @@ const Home = () => {
     const postData = async () => {
         try {
             await axios.post('http://localhost:5000/api/addData', { data: rawData })
-            console.log(`Posted ${rawData}`)
+            
         } catch (err) {
             console.log(err);
         }
@@ -68,9 +68,10 @@ const Home = () => {
     }
 
     const deleteData = async (id) => {
+        console.log(`Delete ${id}`);
         try {
             await axios.put('http://localhost:5000/api/deleteData', { data: id })
-            console.log(`Delete ${id}`);
+            
         } catch (err) {
             console.log(err);
         }

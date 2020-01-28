@@ -53,9 +53,9 @@ router.post('/updateData', (req, res) => {
 // this is our delete method
 // this method removes existing data in our database
 router.put('/deleteData', async (req, res) => {
+    const { id } = req.body.data;
+    console.log(id)
     try{
-        const { id } = await req.body.data;
-        console.log(id);
         await SchemaFarm.deleteOne({ id: id });
         await res.status(200).json({ status: "success" });
     }catch(err){
