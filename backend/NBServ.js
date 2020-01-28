@@ -1,30 +1,9 @@
-const express = require('express')
 const dgram = require("dgram")
 const server = dgram.createSocket("udp4")
 const NbIoTPort = 5003;
-const app = express()
-
-var store = {
-	moi: [], nbip: [], nbport: []
-};
-
-LineSw = (data) => {
-	switch (data.type) {
-		case "setMoi": {
-			store.moi = data.payload
-		}
-		case "setNbip": {
-			store.nbip = data.payload
-		}
-		case "setNbPort": {
-			store.nbport = data.payload
-		}
-		case "getMoi": return store.moi
-	}
-}
 
 server.on("error", (err) => {
-	console.log("server error:\n" + err.stack);
+	console.log("server error:\n" + err.name + err.message + err.stack);
 	//server.close()
 })
 
@@ -35,19 +14,6 @@ server.on("close", (err) => {
 
 server.on("message", (msg, rinfo) => {
 	console.log("server got: " + msg + " from " + rinfo.address + ":" + rinfo.port);
-	LineSw({
-		type: "setMoi",
-		payload: msg.toString()
-	})
-
-	LineSw({
-		type: "setNbip",
-		payload: rinfo.address
-	})
-	LineSw({
-		type: "setNbPort",
-		payload: rinfo.port
-	})
 
 	// var ack = new Buffer("1")
 	// server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {

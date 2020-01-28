@@ -53,10 +53,10 @@ router.post('/updateData', (req, res) => {
 // this is our delete method
 // this method removes existing data in our database
 router.put('/deleteData', async (req, res) => {
-    const { id } = req.body.data;
-    console.log(id)
     try{
-        await SchemaFarm.deleteOne({ id: id });
+        const { idToDelete } = req.body.data;
+        console.log(idToDelete);
+        await SchemaFarm.deleteOne({ id: idToDelete });
         await res.status(200).json({ status: "success" });
     }catch(err){
         console.log('Cannot delete data because : ' + err);
@@ -83,6 +83,7 @@ router.post('/addData', async (req, res) => {
         await res.status(200).json({ status: "success" })
     } catch (err) {
         res.status(400).json({ status: "Cannot insert data because : " + err })
+        console.log(err)
     }
 });
 

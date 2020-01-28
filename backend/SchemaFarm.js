@@ -6,7 +6,7 @@ const DataSchema = new Schema(
   {
     id: Number,
     data: String,
-    date: String
+    date: String,
   },
 );
 

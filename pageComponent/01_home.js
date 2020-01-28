@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table } from 'antd';
-
+import { Table, Modal } from 'antd';
+const { confirm } = Modal;
 const Home = () => {
     //State
     const [data, setData] = useState([]);
@@ -10,6 +10,23 @@ const Home = () => {
     useEffect(() => {
         getData()
     }, [setData])
+
+    const deleteModel = (id) => {
+        const idToDelete = id;
+        confirm({
+          title: 'Do you want to delete these items?',
+          content: 'When clicked the delete button, your data will be remove permanent',
+          okType: 'danger',
+          okText: 'Delete',
+          onOk() {
+            return new Promise((resolve, reject) => {
+              setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+              deleteData(idToDelete);
+            }).catch((error) => console.log('Oops errors!' + error));
+          },
+          onCancel() {},
+        });
+      }
 
     const getData = async () => {
         const result = await axios.get('http://localhost:5000/api/getData');
@@ -46,7 +63,11 @@ const Home = () => {
             title: 'Action',
             dataIndex: 'id',
             key: 'x',
-            render: (text, record, index) => <a onClick={() => {deleteData(text)}}>Delete</a>,
+            render: (text, record, index) => 
+            <a onClick={() => { 
+                deleteModel(record.id); 
+                }}>Delete
+            </a>, // return Json at fetch byID
         },
     ];
 
@@ -57,7 +78,7 @@ const Home = () => {
     const postData = async () => {
         try {
             await axios.post('http://localhost:5000/api/addData', { data: rawData })
-            
+
         } catch (err) {
             console.log(err);
         }
@@ -70,8 +91,11 @@ const Home = () => {
     const deleteData = async (id) => {
         console.log(`Delete ${id}`);
         try {
-            await axios.put('http://localhost:5000/api/deleteData', { data: id })
-            
+            await axios.put('http://localhost:5000/api/deleteData', {
+                data: {
+                    idToDelete: id
+                }
+            })
         } catch (err) {
             console.log(err);
         }
@@ -81,21 +105,30 @@ const Home = () => {
         event.preventDefault();
     }
 
-
-
     return (
         <>
-            <button onClick={getData}>Refresh Data</button>
+            <button
+                onClick={getData}>Refresh Data
+            </button>
             <form onSubmit={handleSubmit}>
                 <input
                     value={rawData}
                     type='text'
-                    onChange={(event) => setRawData(event.target.value)}
+                    onChange={(event) => {
+                        setRawData(event.target.value)
+                    }}
                 />
-
-                <button type="submit" onClick={postData}>Submit</button>
+                <button
+                    type="submit"
+                    onClick={postData}>Submit
+                </button>
             </form>
-            <Table columns={columns} dataSource={data} onChange={onChange} />
+            <Table
+                columns={columns}
+                dataSource={data}
+                onChange={onChange}
+                pagination={{defaultPageSize: 20, showSizeChanger: true, pageSizeOptions: ['20', '30', '40', '50']}}
+            />
         </>
     )
 }

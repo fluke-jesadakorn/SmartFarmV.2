@@ -18,7 +18,7 @@ const NavigationBar = (props) => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout >
 
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <div className="logo" />
@@ -63,17 +63,17 @@ const NavigationBar = (props) => {
       </Sider>
             
       <Layout>
-        <Header style={{ background: '#fff', padding: 0 }} />
-        <Content style={{ margin: '0 16px' }}>
+        <Header hidden = 'true'/>
+        <Content style={{ margin: '0px 16px' }}>
           
           {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
           </Breadcrumb> */}
-          <div style={{ padding: 24, background: '#fff', minHeight: 20 }}>{pages[pageNum]}</div>
+          <div style={{ paddingTop: 0, background: '#fff', marginTop: 0 }}>{pages[pageNum]}</div>
+          {props.children}
         </Content>
-        {props.children}
-        <Footer style={{ textAlign: 'center' }}>Thank you Ant Design ©2018 Created by Ant UED Developed By Fluke</Footer>
+        <Footer style={{ textAlign: 'center' , marginBottom: 0}}>Thank you Ant Design ©2018 Created by Ant UED Developed By Fluke</Footer>
       </Layout>
     </Layout>
   );
