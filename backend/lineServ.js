@@ -35,7 +35,7 @@ async function reply(reply_token, msg) {
             return await offBot(false)
         }
         else if (await msg === 'ดูอุณหภูมิ' || await msg == "3") {
-            return await axios.get('http://localhost:5000')
+            return await axios.get('http://localhost:5000/api/getData')
         }
         else if (await msg === 'ดูความชื้น' || await msg == "4") {
             return await "ยังไม่เปิดใช้งาน"

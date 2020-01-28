@@ -63,7 +63,7 @@ const NavigationBar = (props) => {
       </Sider>
             
       <Layout>
-        <Header hidden = 'true'/>
+        <Header hidden = {true}/>
         <Content style={{ margin: '0px 16px' }}>
           
           {/* <Breadcrumb style={{ margin: '16px 0' }}>
