@@ -35,10 +35,10 @@ async function reply(reply_token, msg) {
             return await offBot(false)
         }
         else if (await msg === 'ดูอุณหภูมิ' || await msg == "3") {
-            return await axios.get('http://localhost:5000/api/getData')
+            return await 'ยังไม่เิดใช้งาน'
         }
         else if (await msg === 'ดูความชื้น' || await msg == "4") {
-            return await "ยังไม่เปิดใช้งาน"
+            return await getLastData();
         }
         else if (await msg === 'ปิดน้ำ' || await msg == "6") {
             await NBserver.sendSw(false)
@@ -57,6 +57,11 @@ async function reply(reply_token, msg) {
         else {
             return await 'โปรดพิมพ์ว่า "?" หรือ "ดูคำสั่ง" เพื่อดูคำสั่งทั้งหมด'
         }
+    }
+
+    const getLastData = async () => {
+        const result = await axios.get('http://localhost:5000/api/getLastData')
+        return JSON.stringify(result);
     }
 
     onBot = async (command) => {

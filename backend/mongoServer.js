@@ -36,6 +36,15 @@ router.get('/getData', async (req, res) => {
     }
 })
 
+router.get('/getLastData', async (req, res) => {
+    try {
+        let getData = await SchemaFarm.find().limit(1).sort({$natural:-1})
+        await res.status(200).json(getData)
+    } catch (err) {
+        console.log('Cannot get data because : ' + err)
+    }
+})
+
 // this is our update method
 // this method overwrites existing data in our database
 router.post('/updateData', (req, res) => {
