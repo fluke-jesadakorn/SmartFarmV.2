@@ -1,6 +1,7 @@
-const dgram = require("dgram")
-const server = dgram.createSocket("udp4")
+const dgram = require("dgram");
+const server = dgram.createSocket("udp4");
 const NbIoTPort = 5003;
+const axios = require('axios');
 
 let stateNBiot = {
 	ip:null,
