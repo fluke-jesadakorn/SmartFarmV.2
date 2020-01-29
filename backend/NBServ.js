@@ -1,10 +1,21 @@
 const dgram = require("dgram")
 const server = dgram.createSocket("udp4")
 const NbIoTPort = 5003;
+
 let stateNBiot = {
-	ip:'',
-	port:0000,
+	ip:null,
+	port:null
 }
+
+module.exports = LineOnOffSolenoid = (stateSolenoid) => {
+	if (stateNBiot.ip !== null){
+		var ack = new Buffer(stateSolenoid.toString())
+		server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
+			console.log(`stateSolenoid ${stateSolenoid}`);
+		})
+	}
+}
+
 server.on("error", (err) => {
 	console.log("server error:\n" + err.name + err.message + err.stack);
 	//server.close()
@@ -21,11 +32,11 @@ server.on("message", (msg, rinfo) => {
 	stateNBiot.port = rinfo.port
 
 	console.log(stateNBiot);
-	
-	var ack = new Buffer("1")
-	server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
-		console.log("sent ACK. 0 ")
-	})
+
+	// var ack = new Buffer("1")
+	// server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
+	// 	console.log("sent ACK. 0 ")
+	// })
 })
 
 server.on("listening", function () {
@@ -38,4 +49,3 @@ server.bind({
 	port: NbIoTPort,
 	exclusive: true
 });
-

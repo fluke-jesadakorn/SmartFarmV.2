@@ -7,6 +7,7 @@ const app = express()
 const PORT = process.env.PORT || 5006
 const LineToken = process.env.LINE_TOKEN;
 const serverWithSSL = require('./globalHttpsConf')
+const NBserver = require('./NBServ')
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -41,11 +42,11 @@ async function reply(reply_token, msg) {
             return await getLastData();
         }
         else if (await msg === 'ปิดน้ำ' || await msg == "6") {
-            await NBserver.sendSw(false)
+            await NBserver(0)
             return await "ปิดน้ำแล้ว";
         }
         else if (await msg === 'เปิดน้ำ' || await msg == "7") {
-            await NBserver.sendSw(true)
+            await NBserver(1)
             return await "เปิดน้ำแล้ว";
         }
         else if (await msg === 'ตั้งค่า' || await msg == "8") {
