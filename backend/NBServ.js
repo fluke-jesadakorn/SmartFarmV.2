@@ -26,7 +26,7 @@ server.on("close", (err) => {
 	//server.close()
 })
 
-server.on("message", (msg, rinfo) => {
+server.on("message", async (msg, rinfo) => {
 	console.log("server got: " + msg + " from " + rinfo.address + ":" + rinfo.port);
 	stateNBiot.ip = rinfo.address
 	stateNBiot.port = rinfo.port
