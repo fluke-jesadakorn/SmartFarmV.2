@@ -32,6 +32,13 @@ server.on("message", (msg, rinfo) => {
 	stateNBiot.port = rinfo.port
 
 	console.log(stateNBiot);
+        try {
+            await axios.post('http://localhost:5000/api/addData', { 
+                data: msg.toString()
+            })
+        } catch (err) {
+            console.log(err);
+        }
 
 	// var ack = new Buffer("1")
 	// server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
