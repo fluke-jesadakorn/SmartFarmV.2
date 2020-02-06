@@ -51,8 +51,10 @@ server.bind({
 module.exports = waterOnOff = (OnOff) => {
 	var ack2 = new Buffer(OnOff.toString())
 	if(NBIoT.NbIP !== null){
-		server.send(ack2, 0, ack2.length, NBIoT.NbIP, NBIoT.NbIP, function (err, bytes) {
+		server.send(ack2, 0, ack2.length, NBIoT.NBPort, NBIoT.NbIP, function (err, bytes) {
 			console.log("sent ACK. 0 ")
 		})
+	}else{
+		console.log('PleaseWait')
 	}
 }

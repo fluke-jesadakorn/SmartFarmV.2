@@ -9,7 +9,6 @@ const LineToken = process.env.LINE_TOKEN;
 const serverWithSSL = require('./globalHttpsConf')
 const NBServOnOff = require('./NBServ')
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post('/webhook', async (req, res) => {
