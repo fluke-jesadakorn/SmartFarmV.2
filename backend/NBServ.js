@@ -1,6 +1,21 @@
-const dgram = require("dgram")
-const server = dgram.createSocket("udp4")
+const dgram = require("dgram");
+const server = dgram.createSocket("udp4");
 const NbIoTPort = 5003;
+const axios = require('axios');
+
+let stateNBiot = {
+	ip:null,
+	port:null
+}
+
+module.exports = LineOnOffSolenoid = (stateSolenoid) => {
+	if (stateNBiot.ip !== null){
+		var ack = new Buffer(stateSolenoid.toString())
+		server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
+			console.log(`stateSolenoid ${stateSolenoid}`);
+		})
+	}
+}
 
 var NBIoT = {
 	NbIP: null,
@@ -18,8 +33,10 @@ server.on("close", (err) => {
 	//server.close()
 })
 
-server.on("message", (msg, rinfo) => {
+server.on("message", async (msg, rinfo) => {
 	console.log("server got: " + msg + " from " + rinfo.address + ":" + rinfo.port);
+	stateNBiot.ip = rinfo.address
+	stateNBiot.port = rinfo.port
 
 	NBIoT.NbIP = rinfo.address;
 	NBIoT.NBPort = rinfo.port;

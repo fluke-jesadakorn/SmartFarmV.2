@@ -9,6 +9,7 @@ const LineToken = process.env.LINE_TOKEN;
 const serverWithSSL = require('./globalHttpsConf')
 const NBServOnOff = require('./NBServ')
 
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post('/webhook', async (req, res) => {
@@ -36,17 +37,19 @@ async function reply(reply_token, msg) {
             return await offBot(false)
         }
         else if (await msg === 'ดูอุณหภูมิ' || await msg == "3") {
-            return await axios.get('http://localhost:5000/api/getData')
+            return await 'ยังไม่เิดใช้งาน'
         }
         else if (await msg === 'ดูความชื้น' || await msg == "4") {
-            return await "ยังไม่เปิดใช้งาน"
+            return await getLastData();
         }
         else if (await msg === 'ปิดน้ำ' || await msg == "6") {
+
             await NBServOnOff(0);
             return await "ปิดน้ำแล้ว";
         }
         else if (await msg === 'เปิดน้ำ' || await msg == "7") {
             await NBServOnOff(1);
+
             return await "เปิดน้ำแล้ว";
         }
         else if (await msg === 'ตั้งค่า' || await msg == "8") {
@@ -58,6 +61,11 @@ async function reply(reply_token, msg) {
         else {
             return await 'โปรดพิมพ์ว่า "?" หรือ "ดูคำสั่ง" เพื่อดูคำสั่งทั้งหมด'
         }
+    }
+
+    const getLastData = async () => {
+        const result = await axios.get('http://localhost:5000/api/getLastData')
+        return JSON.stringify(result);
     }
 
     onBot = async (command) => {

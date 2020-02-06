@@ -77,8 +77,9 @@ const Home = () => {
 
     const postData = async () => {
         try {
-            await axios.post('http://localhost:5000/api/addData', { data: rawData })
-
+            await axios.post('http://localhost:5000/api/addData', { 
+                data: rawData 
+            })
         } catch (err) {
             console.log(err);
         }
