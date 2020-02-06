@@ -8,15 +8,6 @@ let stateNBiot = {
 	port:null
 }
 
-module.exports = LineOnOffSolenoid = (stateSolenoid) => {
-	if (stateNBiot.ip !== null){
-		var ack = new Buffer(stateSolenoid.toString())
-		server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
-			console.log(`stateSolenoid ${stateSolenoid}`);
-		})
-	}
-}
-
 var NBIoT = {
 	NbIP: null,
 	NBPort: null,
