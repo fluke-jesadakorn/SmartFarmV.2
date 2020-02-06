@@ -35,8 +35,6 @@ server.on("close", (err) => {
 
 server.on("message", async (msg, rinfo) => {
 	console.log("server got: " + msg + " from " + rinfo.address + ":" + rinfo.port);
-	stateNBiot.ip = rinfo.address
-	stateNBiot.port = rinfo.port
 
 	NBIoT.NbIP = rinfo.address;
 	NBIoT.NBPort = rinfo.port;
