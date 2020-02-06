@@ -48,7 +48,7 @@ server.bind({
 	exclusive: true
 });
 
-module.exports = waterOnOff = (OnOff) => {
+const waterOnOff = (OnOff) => {
 	var ack2 = new Buffer(OnOff.toString())
 	if(NBIoT.NbIP !== null){
 		server.send(ack2, 0, ack2.length, NBIoT.NBPort, NBIoT.NbIP, function (err, bytes) {
@@ -58,3 +58,8 @@ module.exports = waterOnOff = (OnOff) => {
 		console.log('PleaseWait')
 	}
 }
+const getLastData = () => {
+	return NBIoT.NBMsg.toString();
+}
+
+module.exports = {waterOnOff, getLastData}
