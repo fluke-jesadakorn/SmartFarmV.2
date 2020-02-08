@@ -59,12 +59,7 @@ async function reply(reply_token, msg) {
             return await 'โปรดพิมพ์ว่า "?" หรือ "ดูคำสั่ง" เพื่อดูคำสั่งทั้งหมด'
         }
     }
-
-    const getLastData = async () => {
-        const result = await axios.get('http://localhost:5000/api/getLastData')
-        return JSON.stringify(result);
-    }
-
+    
     onBot = async (command) => {
         await console.log(command)
     }

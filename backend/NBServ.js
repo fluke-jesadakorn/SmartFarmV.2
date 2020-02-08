@@ -3,11 +3,6 @@ const server = dgram.createSocket("udp4");
 const NbIoTPort = 5003;
 const axios = require('axios');
 
-let stateNBiot = {
-	ip:null,
-	port:null
-}
-
 var NBIoT = {
 	NbIP: null,
 	NBPort: null,
@@ -31,10 +26,10 @@ server.on("message", async (msg, rinfo) => {
 	NBIoT.NBPort = rinfo.port;
 	NBIoT.NBMsg = msg.toString();
 
-	var ack = new Buffer("1")
-	server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
-		console.log("sent ACK. 0 ")
-	})
+	// var ack = new Buffer("1")
+	// server.send(ack, 0, ack.length, rinfo.port, rinfo.address, function (err, bytes) {
+	// 	console.log("sent ACK. 0 ")
+	// })
 })
 
 server.on("listening", function () {
@@ -52,12 +47,13 @@ const waterOnOff = (OnOff) => {
 	var ack2 = new Buffer(OnOff.toString())
 	if(NBIoT.NbIP !== null){
 		server.send(ack2, 0, ack2.length, NBIoT.NBPort, NBIoT.NbIP, function (err, bytes) {
-			console.log("sent ACK. 0 ")
+			console.log("sent ACK : " + ack2.toString() + 'to NBIoT')
 		})
 	}else{
-		console.log('PleaseWait')
+		console.log('Please Wait For NBIoT Connected First')
 	}
 }
+
 const getLastData = () => {
 	return NBIoT.NBMsg.toString();
 }
