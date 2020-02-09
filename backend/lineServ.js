@@ -69,11 +69,11 @@ async function reply(reply_token, msg) {
     }
     
     onBot = async (command) => {
-        await console.log(command)
+        await console.log(command);
     }
 
     offBot = async (command) => {
-        await console.log(command)
+        await console.log(command);
     }
 
     let body = await JSON.stringify({
