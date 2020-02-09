@@ -50,10 +50,10 @@ async function reply(reply_token, msg) {
             return await "เปิดน้ำแล้ว";
         }
         else if (await msg.substring(0,18) === 'ตั้งเวลาเปิดปิดน้ำ' || await msg.substring(0,1) == "7") {
-            if(msg.length === 18 && parseInt(msg.substring(18,21)<100)){
+            if(msg.length === 18){
                 return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(18,21) + "ช.ม.";
             }
-            else if(msg.length === 1 && parseInt(msg.substring(1,3)) < 100){
+            else if(msg.length === 1){
                 return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(1,3) + "ช.ม.";
             }
             else{
@@ -61,7 +61,7 @@ async function reply(reply_token, msg) {
             }
         }
         else if (await msg == 'ดูคำสั่ง' || await msg == 'help' || await msg == '?') {
-            return await `1. ปิดการแจ้งเตือน \n2. เปิดการแจ้งเตือน \n3. ดูอุณหภูมิ \n4. ดูความชื้น \n5. ปิดน้ำ \n6. เปิดน้ำ \n 7.ตั้งเวลา {เวลาที่จะตั้งค่าให้ปิดเปิด(ช.ม.)}`
+            return await `1. ปิดการแจ้งเตือน \n2. เปิดการแจ้งเตือน \n3. ดูอุณหภูมิ \n4. ดูความชื้น \n5. ปิดน้ำ \n6. เปิดน้ำ \n7.ตั้งเวลา {เวลาที่จะตั้งค่าให้ปิดเปิด(ช.ม.)}`
         }
         else {
             return await 'โปรดพิมพ์ว่า "?" หรือ "ดูคำสั่ง" เพื่อดูคำสั่งทั้งหมด'
