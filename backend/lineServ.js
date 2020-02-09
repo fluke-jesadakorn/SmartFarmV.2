@@ -33,7 +33,7 @@ async function reply(reply_token, msg) {
             return 'ได้ครับ';
         }
         else if (await msg === 'ปิดแจ้งเตือน' || await msg == "2") {
-            return await offBot(false)
+            return 'ได้ครับ';
         }
         else if (await msg === 'ดูอุณหภูมิ' || await msg == "3") {
             return await NBServ.getLastData();
@@ -41,19 +41,27 @@ async function reply(reply_token, msg) {
         else if (await msg === 'ดูความชื้น' || await msg == "4") {
             return await NBServ.getLastData();
         }
-        else if (await msg === 'ปิดน้ำ' || await msg == "6") {
+        else if (await msg === 'ปิดน้ำ' || await msg == "5") {
             await NBServ.waterOnOff(0);
             return await "ปิดน้ำแล้ว";
         }
-        else if (await msg === 'เปิดน้ำ' || await msg == "7") {
+        else if (await msg === 'เปิดน้ำ' || await msg == "6") {
             await NBServ.waterOnOff(1);
             return await "เปิดน้ำแล้ว";
         }
-        else if (await msg === 'ตั้งค่า' || await msg == "8") {
-            return await "ตั้งค่า ดังนี้";
+        else if (await msg.substring(0,18) === 'ตั้งเวลาเปิดปิดน้ำ' || await msg.substring(0,1) == "7") {
+            if(msg.length === 18 && parseInt(msg.substring(18,21)<100)){
+                return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(18,21) + "ช.ม.";
+            }
+            else if(msg.length === 1 && parseInt(msg.substring(1,3)) < 100){
+                return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(1,3) + "ช.ม.";
+            }
+            else{
+                return await "โปรดตั้งค่าดังรูปแบบนี้ [ตั้งเวลาเปิดปิดน้ำ 02 หรือ 7 02] หมายถึงเปิด 2 ช.ม. ปิด 2 ช.ม.";
+            }
         }
         else if (await msg == 'ดูคำสั่ง' || await msg == 'help' || await msg == '?') {
-            return await `1. ปิดการแจ้งเตือน \n2. เปิดการแ้งเตือน \n3. ดูอุณหภูมิ \n4. ดูความชื้น \n5. ดูรูป \n6. ปิดน้ำ \n7. เปิดน้ำ`
+            return await `1. ปิดการแจ้งเตือน \n2. เปิดการแจ้งเตือน \n3. ดูอุณหภูมิ \n4. ดูความชื้น \n5. ปิดน้ำ \n6. เปิดน้ำ \n 7.ตั้งเวลา {เวลาที่จะตั้งค่าให้ปิดเปิด(ช.ม.)}`
         }
         else {
             return await 'โปรดพิมพ์ว่า "?" หรือ "ดูคำสั่ง" เพื่อดูคำสั่งทั้งหมด'
