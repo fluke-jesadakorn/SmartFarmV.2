@@ -53,7 +53,7 @@ async function reply(reply_token, msg) {
             }
         }
         else if (await msg.substring(0, 26) === "ตั้งความชื้นดินเพื่อปิดน้ำ" || await msg.substring(0, 1) === "5") {
-            NBServ.setTimeOnOff(msg.substring(2))
+            NBServ.setHumidity(msg.substring(2));
             return await "ตั้งความชื้นดินเพื่อปิดน้ำ : " + msg.substring(2, 4) + "%";
         }
         else if (await msg == 'ดูคำสั่ง' || await msg == 'help' || await msg == '?') {
