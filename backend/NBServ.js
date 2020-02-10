@@ -58,7 +58,7 @@ const setTimeOnOff = (time) => {
 	let ack = new Buffer("st"+time.toString());	
 	if(NBIoT.NbIP !== null){
 		server.send(ack, 0, ack.length, NBIoT.NBPort, NBIoT.NbIP, function (err, bytes) {
-			console.log("sent ACK : " + ack.toString() + 'to NBIoT');
+			console.log("sent OnOff : " + ack.toString() + 'to NBIoT');
 		})
 	}else{
 		console.log('Please Wait For NBIoT Connected First')

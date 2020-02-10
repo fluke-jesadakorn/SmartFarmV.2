@@ -51,11 +51,11 @@ async function reply(reply_token, msg) {
         }
         else if (await msg.substring(0, 18) === 'ตั้งเวลาเปิดปิดน้ำ' || await msg.substring(0, 1) == "7") {
             if (msg.length === 21) {
-                NBServ.setTimeOnOff(msg)
+                NBServ.setTimeOnOff(msg.substring(18))
                 return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(19, 22) + " ช.ม.";
             }
             else if (msg.length === 4) {
-                NBServ.setTimeOnOff(msg)
+                NBServ.setTimeOnOff(msg.substring(2))
                 return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(2, 4) + " ช.ม.";
             }
             else {
