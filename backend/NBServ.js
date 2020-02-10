@@ -69,6 +69,7 @@ const getLastData = () => {
 const setHumidity = (humidity) => {
 	let convert = +humidity;
 	convert = humidity * 6.7;
+	convert = Math.round(convert);
 	let ack = new Buffer("hm" + convert.toString());
 	if (NBIoT.NbIP !== null) {
 		server.send(ack, 0, ack.length, NBIoT.NBPort, NBIoT.NbIP, function (err, bytes) {
