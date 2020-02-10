@@ -50,16 +50,16 @@ async function reply(reply_token, msg) {
             return await "เปิดน้ำแล้ว";
         }
         else if (await msg.substring(0, 18) === 'ตั้งเวลาเปิดปิดน้ำ' || await msg.substring(0, 1) == "7") {
-            if (msg.length === 21) {
+            if (msg.length === 20) {
                 NBServ.setTimeOnOff(msg.substring(18))
-                return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(19, 22) + " ช.ม.";
+                return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(19, 21) + " ช.ม.";
             }
-            else if (msg.length === 4) {
+            else if (msg.length === 3) {
                 NBServ.setTimeOnOff(msg.substring(2))
-                return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(2, 4) + " ช.ม.";
+                return await "ตั้งเวลาเปิดปิดน้ำ " + msg.substring(2, 3) + " ช.ม.";
             }
             else {
-                return await "โปรดตั้งค่าดังรูปแบบนี้ [ตั้งเวลาเปิดปิดน้ำ 02 หรือ 7 02] หมายถึงเปิด 2 ช.ม. ปิด 2 ช.ม.";
+                return await "โปรดตั้งค่าดังรูปแบบนี้ [ตั้งเวลาเปิดปิดน้ำ 02 หรือ 7 2] หมายถึงเปิด 2 ช.ม. ปิด 2 ช.ม.";
             }
         }
         else if (await msg == 'ดูคำสั่ง' || await msg == 'help' || await msg == '?') {
