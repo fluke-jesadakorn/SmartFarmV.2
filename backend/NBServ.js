@@ -1,7 +1,6 @@
 const dgram = require("dgram");
 const server = dgram.createSocket("udp4");
 const NbIoTPort = 5003;
-const axios = require('axios');
 
 var NBIoT = {
 	NbIP: null,
@@ -11,11 +10,6 @@ var NBIoT = {
 
 server.on("error", (err) => {
 	console.log("server error:\n" + err.name + err.message + err.stack);
-	//server.close()
-})
-
-server.on("close", (err) => {
-	console.log("server close:\n" + err.stack);
 	//server.close()
 })
 
@@ -61,8 +55,11 @@ const setTimeOnOff = (time) => {
 			console.log("sent OnOff : " + ack.toString() + 'to NBIoT');
 		})
 	}else{
-		console.log('Please Wait For NBIoT Connected First')
+		console.log('Please Wait For NBIoT Connected First');
 	}
 }
 
-module.exports = {waterOnOff, setTimeOnOff}
+const getLastData = () => {
+	return NBIoT.NBMsg.toString();
+}
+module.exports = {waterOnOff, setTimeOnOff, getLastData}
