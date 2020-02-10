@@ -60,6 +60,8 @@ const setTimeOnOff = (time) => {
 }
 
 const getLastData = () => {
-	return NBIoT.NBMsg.toString();
+	let convert = +NBIoT.NBMsg
+	convert = convert/6.7;
+	return convert.toString();
 }
 module.exports = {waterOnOff, setTimeOnOff, getLastData}
