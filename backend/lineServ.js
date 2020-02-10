@@ -52,6 +52,10 @@ async function reply(reply_token, msg) {
                 return await "โปรดตั้งค่าดังรูปแบบนี้ [ตั้งเวลาเปิดปิดน้ำ 2 หรือ 4 2] หมายถึงเปิด 2 ช.ม. ปิด 2 ช.ม.";
             }
         }
+        else if (await msg.substring(0, 26) === "ตั้งความชื้นดินเพื่อปิดน้ำ" || await msg.substring(0, 1) === "5") {
+            NBServ.setTimeOnOff(msg.substring(2))
+            return await "ตั้งความชื้นดินเพื่อปิดน้ำ : " + msg.substring(2, 4) + "%";
+        }
         else if (await msg == 'ดูคำสั่ง' || await msg == 'help' || await msg == '?') {
             return await `1. ดูความชื้น \n2. ปิดน้ำ \n3. เปิดน้ำ \n4.ตั้งเวลา {เวลาที่จะตั้งค่าให้ปิดเปิด(ช.ม.)}`
         }
