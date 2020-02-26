@@ -7,6 +7,7 @@
     "server": "nodemon ./backend/centerAPI.js",
     "dev": "NODE_ENV=development nodemon ./server.js",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "product": "npm run build && NODE_ENV=production nodemon ./server.js"
   },

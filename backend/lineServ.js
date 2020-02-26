@@ -29,7 +29,7 @@ async function reply(reply_token, msg) {
 
     let resMessage = async (msg) => {
         if (await msg === 'ดูความชื้น' || await msg == "1") {
-            return await NBServ.getLastData();
+            return await NBServ.getLastData() + "%";
         }
         else if (await msg === 'ปิดน้ำ' || await msg == "2") {
             await NBServ.waterOnOff(0);

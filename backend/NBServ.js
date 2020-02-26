@@ -62,10 +62,45 @@ const setTimeOnOff = (time) => {
 const getLastData = () => {
 	let convert = +NBIoT.NBMsg;
 	convert = convert / 6.7;
+	if (convert > 100){
+		convert = 100;
+	}
 	convert = Math.round(convert);
 	return convert.toString();
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.3
 const setHumidity = (humidity) => {
 	let convert = +humidity;
 	convert = humidity * 6.7;
