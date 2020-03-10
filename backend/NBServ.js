@@ -37,6 +37,11 @@ server.bind({
 	exclusive: true
 });
 
+//st: settime
+//oo: onOff
+//gt: get Time
+//ws: water state
+
 const waterOnOff = (OnOff) => {
 	let ack = new Buffer("oo0" + OnOff.toString())
 	if (NBIoT.NbIP !== null) {
@@ -62,45 +67,13 @@ const setTimeOnOff = (time) => {
 const getLastData = () => {
 	let convert = +NBIoT.NBMsg;
 	convert = convert / 6.7;
-	if (convert > 100){
+	if (convert > 100) {
 		convert = 100;
 	}
 	convert = Math.round(convert);
-	return convert.toString();
+	return "ความชื้นขณะนี้ : " + convert.toString() + "%";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.3
 const setHumidity = (humidity) => {
 	let convert = +humidity;
 	convert = humidity * 6.7;
@@ -114,4 +87,28 @@ const setHumidity = (humidity) => {
 		console.log('Please Wait For NBIoT Connected First');
 	}
 }
-module.exports = { waterOnOff, setTimeOnOff, getLastData, setHumidity }
+
+const getOnOffTime = () => {
+	let ack = new Buffer("gt");
+	if (NBIoT.NbIP !== null) {
+		server.send(ack, 0, ack.length, NBIoT.NBPort, NBIoT.NbIP, function (err, bytes) {
+			console.log("Time before water on : " + ack.toString() + 'minute');
+		})
+		return NBIoT.NBMsg;
+	} else {
+		console.log('Please Wait For NBIoT Connected First');
+	}
+}
+
+const getWaterState = () => {
+	let ack = new Buffer("ws");
+	if (NBIoT.NbIP !== null) {
+		server.send(ack, 0, ack.length, NBIoT.NBPort, NBIoT.NbIP, function (err, bytes) {
+			console.log("status water is : " + ack.toString());
+		})
+		return NBIoT.NBMsg;
+	} else {
+		console.log('Please Wait For NBIoT Connected First');
+	}
+}
+module.exports = { waterOnOff, setTimeOnOff, getLastData, setHumidity, getOnOffTime, getWaterState }
