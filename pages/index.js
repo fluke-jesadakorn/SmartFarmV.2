@@ -9,11 +9,7 @@ const Index = () => {
 
   return (
     <>
-
-      {/* <Drawer/> */}
-
       <Nav/>
-
     </>
   );
 }
